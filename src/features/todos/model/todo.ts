@@ -20,6 +20,13 @@ export function createTodo(title: string): Todo {
   }
 }
 
+export function renameTodo(todo: Todo, title: string): Todo {
+  if (!isValidTitle(title)) return todo
+  const normalized = normalizeTitle(title)
+  if (normalized === todo.title) return todo
+  return { ...todo, title: normalized }
+}
+
 export function moveTodo(todo: Todo, status: TodoStatus): Todo {
   if (!canMove(todo.status, status)) return todo
   return { ...todo, status }

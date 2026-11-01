@@ -4,6 +4,7 @@ export {
   isValidTitle,
   moveTodo,
   normalizeTitle,
+  renameTodo,
 } from "./todo"
 export { TODO_STATUSES, canMove, isTodoStatus } from "./status"
 export { isSamePlacement, placeTodo, placementOf } from "./placement"
