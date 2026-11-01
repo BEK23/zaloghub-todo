@@ -35,7 +35,7 @@ export function TodoItem({ todo, index }: TodoItemProps) {
     <li
       ref={ref}
       className={cn(
-        "flex items-center gap-1 rounded-lg border bg-card px-3 py-2",
+        "group/todo flex items-center gap-1 rounded-lg border bg-card px-3 py-2",
         !isEditing && "cursor-grab",
         isDragging && "cursor-grabbing shadow-lg"
       )}
@@ -47,17 +47,19 @@ export function TodoItem({ todo, index }: TodoItemProps) {
           onCancel={() => setIsEditing(false)}
         />
       ) : (
-        <>
-          <span
-            onDoubleClick={() => setIsEditing(true)}
-            className={cn(
-              "min-w-0 flex-1 truncate text-sm",
-              todo.status === TODO_STATUS.COMPLETED &&
-                "text-muted-foreground line-through"
-            )}
-          >
-            {todo.title}
-          </span>
+        <span
+          onDoubleClick={() => setIsEditing(true)}
+          className={cn(
+            "min-w-0 flex-1 truncate text-sm",
+            todo.status === TODO_STATUS.COMPLETED &&
+              "text-muted-foreground line-through"
+          )}
+        >
+          {todo.title}
+        </span>
+      )}
+      <div className="flex gap-1 transition-opacity group-focus-within/todo:opacity-100 group-hover/todo:opacity-100 pointer-fine:opacity-0">
+        {!isEditing && (
           <Button
             variant="ghost"
             size="icon-xs"
@@ -66,16 +68,16 @@ export function TodoItem({ todo, index }: TodoItemProps) {
           >
             <PencilIcon />
           </Button>
-        </>
-      )}
-      <Button
-        variant="ghost"
-        size="icon-xs"
-        aria-label="Удалить задачу"
-        onClick={() => removeTodo(todo.id)}
-      >
-        <XIcon />
-      </Button>
+        )}
+        <Button
+          variant="ghost"
+          size="icon-xs"
+          aria-label="Удалить задачу"
+          onClick={() => removeTodo(todo.id)}
+        >
+          <XIcon />
+        </Button>
+      </div>
     </li>
   )
 }
