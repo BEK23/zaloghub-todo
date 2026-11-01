@@ -1,4 +1,4 @@
-import { useDraggable } from "@dnd-kit/react"
+import { useSortable } from "@dnd-kit/react/sortable"
 import { XIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -8,13 +8,15 @@ import { TODO_STATUS, type Todo } from "@/types/todo"
 
 interface TodoItemProps {
   todo: Todo
+  index: number
 }
 
-export function TodoItem({ todo }: TodoItemProps) {
+export function TodoItem({ todo, index }: TodoItemProps) {
   const removeTodo = useTodoStore((state) => state.removeTodo)
-  const { ref, isDragging } = useDraggable({
+  const { ref, isDragging } = useSortable({
     id: todo.id,
-    data: { status: todo.status },
+    index,
+    group: todo.status,
   })
 
   return (

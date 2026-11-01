@@ -1,27 +1,22 @@
-import { DragDropProvider, type DragEndEvent } from "@dnd-kit/react"
+import { DragDropProvider } from "@dnd-kit/react"
 
-import { useTodoStore } from "@/store/todo-store"
-
-import { NEW_TODO_STATUS, TODO_STATUSES, isTodoStatus } from "../model"
+import { NEW_TODO_STATUS, TODO_STATUSES } from "../model"
 import { AddTodoDialog } from "./add-todo-dialog"
 import { TodoColumn } from "./todo-column"
+import { useBoardDnd } from "./use-board-dnd"
 
 export function TodoBoard() {
-  const moveTodo = useTodoStore((state) => state.moveTodo)
-
-  const handleDragEnd = ({ operation, canceled }: DragEndEvent) => {
-    const { source, target } = operation
-    if (canceled || !source || !target || !isTodoStatus(target.id)) return
-    moveTodo(String(source.id), target.id)
-  }
+  const { columns, dropStatus, handlers } = useBoardDnd()
 
   return (
-    <DragDropProvider onDragEnd={handleDragEnd}>
+    <DragDropProvider {...handlers}>
       <div className="grid grid-cols-[repeat(auto-fit,minmax(12rem,1fr))] gap-4">
         {TODO_STATUSES.map((status) => (
           <TodoColumn
             key={status}
             status={status}
+            todos={columns[status]}
+            highlighted={status === dropStatus}
             action={status === NEW_TODO_STATUS ? <AddTodoDialog /> : undefined}
           />
         ))}

@@ -5,9 +5,9 @@ import {
   DEFAULT_FILTER,
   createTodo,
   isValidTitle,
-  moveTodo,
+  placeTodo,
 } from "@/features/todos/model"
-import type { Todo, TodoId, TodoStatus } from "@/types/todo"
+import type { Todo, TodoId, TodoPlacement } from "@/types/todo"
 import type { StatusFilter, TodoFilter } from "@/types/todo-filter"
 
 interface TodoState {
@@ -17,7 +17,7 @@ interface TodoState {
 
 interface TodoActions {
   addTodo: (title: string) => void
-  moveTodo: (id: TodoId, status: TodoStatus) => void
+  placeTodo: (id: TodoId, placement: TodoPlacement) => void
   removeTodo: (id: TodoId) => void
   setFilterQuery: (query: string) => void
   setFilterStatus: (status: StatusFilter) => void
@@ -38,12 +38,8 @@ export const useTodoStore = create<TodoStore>()(
         set((state) => ({ todos: [...state.todos, createTodo(title)] }))
       },
 
-      moveTodo: (id, status) =>
-        set((state) => ({
-          todos: state.todos.map((todo) =>
-            todo.id === id ? moveTodo(todo, status) : todo
-          ),
-        })),
+      placeTodo: (id, placement) =>
+        set((state) => ({ todos: placeTodo(state.todos, id, placement) })),
 
       removeTodo: (id) =>
         set((state) => ({

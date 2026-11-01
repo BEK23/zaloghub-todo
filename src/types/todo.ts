@@ -13,3 +13,10 @@ export interface Todo {
   title: string
   status: TodoStatus
 }
+
+export type TodoColumns = Record<TodoStatus, Todo[]>
+
+export interface TodoPlacement {
+  status: TodoStatus
+  beforeId: TodoId | null
+}

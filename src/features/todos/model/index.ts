@@ -6,10 +6,11 @@ export {
   normalizeTitle,
 } from "./todo"
 export { TODO_STATUSES, canMove, isTodoStatus } from "./status"
+export { isSamePlacement, placeTodo, placementOf } from "./placement"
 export {
   DEFAULT_FILTER,
   STATUS_FILTERS,
-  columnTodos,
+  boardColumns,
   matchesFilter,
   matchesQuery,
   matchesStatus,

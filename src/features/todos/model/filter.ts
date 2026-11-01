@@ -1,4 +1,4 @@
-import type { Todo, TodoStatus } from "@/types/todo"
+import type { Todo, TodoColumns, TodoStatus } from "@/types/todo"
 import {
   STATUS_FILTER,
   type StatusFilter,
@@ -48,4 +48,10 @@ export function columnTodos(
   return todos.filter(
     (todo) => todo.status === column && matchesFilter(todo, filter)
   )
+}
+
+export function boardColumns(todos: Todo[], filter: TodoFilter): TodoColumns {
+  return Object.fromEntries(
+    TODO_STATUSES.map((status) => [status, columnTodos(todos, status, filter)])
+  ) as TodoColumns
 }
