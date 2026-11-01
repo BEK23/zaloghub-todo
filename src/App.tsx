@@ -1,5 +1,11 @@
+import { TodoApp } from "@/features/todos"
+
 export function App() {
-  return <div className="min-h-svh p-6" />
+  return (
+    <main className="flex min-h-svh justify-center p-6">
+      <TodoApp />
+    </main>
+  )
 }
 
 export default App
