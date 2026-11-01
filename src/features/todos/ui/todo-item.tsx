@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { pointerIntersection } from "@dnd-kit/collision"
 import { useSortable } from "@dnd-kit/react/sortable"
 import { PencilIcon } from "lucide-react"
 
@@ -23,6 +24,7 @@ export function TodoItem({ todo, index }: TodoItemProps) {
     id: todo.id,
     index,
     group: todo.status,
+    collisionDetector: pointerIntersection,
     disabled: isEditing,
   })
 
