@@ -37,7 +37,7 @@ export function TodoItem({ todo, index }: TodoItemProps) {
     <li
       ref={ref}
       className={cn(
-        "group/todo flex items-center gap-1 rounded-lg border bg-card px-3 py-2",
+        "group/todo flex items-start gap-1 rounded-lg border bg-card px-3 py-2",
         !isEditing && "cursor-grab",
         isDragging && "cursor-grabbing shadow-lg"
       )}
@@ -52,7 +52,7 @@ export function TodoItem({ todo, index }: TodoItemProps) {
         <span
           onDoubleClick={() => setIsEditing(true)}
           className={cn(
-            "min-w-0 flex-1 truncate text-sm",
+            "min-w-0 flex-1 py-0.5 text-sm wrap-break-word",
             todo.status === TODO_STATUS.COMPLETED &&
               "text-muted-foreground line-through"
           )}
