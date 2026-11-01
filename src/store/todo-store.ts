@@ -8,6 +8,7 @@ import {
   placeTodo,
   renameTodo,
 } from "@/features/todos/model"
+import { INITIAL_TODOS } from "@/mocks/todos"
 import type { Todo, TodoId, TodoPlacement } from "@/types/todo"
 import type { StatusFilter, TodoFilter } from "@/types/todo-filter"
 
@@ -32,7 +33,7 @@ const STORAGE_KEY = "zaloghub-todos"
 export const useTodoStore = create<TodoStore>()(
   persist(
     (set) => ({
-      todos: [],
+      todos: INITIAL_TODOS,
       filter: DEFAULT_FILTER,
 
       addTodo: (title) => {
