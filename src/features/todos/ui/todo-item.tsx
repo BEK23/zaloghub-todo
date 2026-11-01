@@ -1,12 +1,13 @@
 import { useState } from "react"
 import { useSortable } from "@dnd-kit/react/sortable"
-import { PencilIcon, XIcon } from "lucide-react"
+import { PencilIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useTodoStore } from "@/store/todo-store"
 import { TODO_STATUS, type Todo } from "@/types/todo"
 
+import { DeleteTodoDialog } from "./delete-todo-dialog"
 import { TodoTitleInput } from "./todo-title-input"
 
 interface TodoItemProps {
@@ -18,7 +19,6 @@ export function TodoItem({ todo, index }: TodoItemProps) {
   const [isEditing, setIsEditing] = useState(false)
 
   const renameTodo = useTodoStore((state) => state.renameTodo)
-  const removeTodo = useTodoStore((state) => state.removeTodo)
   const { ref, isDragging } = useSortable({
     id: todo.id,
     index,
@@ -69,14 +69,7 @@ export function TodoItem({ todo, index }: TodoItemProps) {
             <PencilIcon />
           </Button>
         )}
-        <Button
-          variant="ghost"
-          size="icon-xs"
-          aria-label="Удалить задачу"
-          onClick={() => removeTodo(todo.id)}
-        >
-          <XIcon />
-        </Button>
+        <DeleteTodoDialog todo={todo} />
       </div>
     </li>
   )
