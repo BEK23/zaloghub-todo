@@ -6,7 +6,11 @@ import { useTodoStore } from "@/store/todo-store"
 
 import { isValidTitle } from "../model"
 
-export function AddTodoForm() {
+interface AddTodoFormProps {
+  onAdded?: () => void
+}
+
+export function AddTodoForm({ onAdded }: AddTodoFormProps) {
   const [title, setTitle] = useState("")
   const addTodo = useTodoStore((state) => state.addTodo)
 
@@ -17,6 +21,7 @@ export function AddTodoForm() {
     if (!canSubmit) return
     addTodo(title)
     setTitle("")
+    onAdded?.()
   }
 
   return (
@@ -24,9 +29,8 @@ export function AddTodoForm() {
       <Input
         value={title}
         onChange={(event) => setTitle(event.target.value)}
-        placeholder="Новая задача"
-        aria-label="Новая задача"
-        autoFocus
+        placeholder="Название задачи"
+        aria-label="Название задачи"
       />
       <Button type="submit" disabled={!canSubmit}>
         Добавить

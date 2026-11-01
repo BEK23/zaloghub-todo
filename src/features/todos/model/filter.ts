@@ -33,14 +33,19 @@ export function matchesStatus(
   return filter === STATUS_FILTER.ALL || status === filter
 }
 
-export function filterTodos(todos: Todo[], filter: TodoFilter): Todo[] {
-  return todos.filter(
-    (todo) =>
-      matchesStatus(todo.status, filter.status) &&
-      matchesQuery(todo.title, filter.query)
+export function matchesFilter(todo: Todo, filter: TodoFilter): boolean {
+  return (
+    matchesStatus(todo.status, filter.status) &&
+    matchesQuery(todo.title, filter.query)
   )
 }
 
-export function visibleStatuses(filter: StatusFilter): TodoStatus[] {
-  return TODO_STATUSES.filter((status) => matchesStatus(status, filter))
+export function columnTodos(
+  todos: Todo[],
+  column: TodoStatus,
+  filter: TodoFilter
+): Todo[] {
+  return todos.filter(
+    (todo) => todo.status === column && matchesFilter(todo, filter)
+  )
 }
