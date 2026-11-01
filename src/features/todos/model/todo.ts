@@ -1,5 +1,7 @@
 import { TODO_STATUS, type Todo, type TodoStatus } from "@/types/todo"
 
+import { canMove } from "./status"
+
 export const NEW_TODO_STATUS: TodoStatus = TODO_STATUS.BACKLOG
 
 export function normalizeTitle(raw: string): string {
@@ -19,6 +21,6 @@ export function createTodo(title: string): Todo {
 }
 
 export function moveTodo(todo: Todo, status: TodoStatus): Todo {
-  if (todo.status === status) return todo
+  if (!canMove(todo.status, status)) return todo
   return { ...todo, status }
 }

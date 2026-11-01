@@ -1,6 +1,11 @@
+import { pointerIntersection } from "@dnd-kit/collision"
+import { useDroppable } from "@dnd-kit/react"
+
+import { cn } from "@/lib/utils"
 import { useColumnTodos } from "@/store/todo-selectors"
 import type { TodoStatus } from "@/types/todo"
 
+import { canMove, isTodoStatus } from "../model"
 import { STATUS_LABELS } from "./status-labels"
 import { TodoItem } from "./todo-item"
 
@@ -11,9 +16,21 @@ interface TodoColumnProps {
 
 export function TodoColumn({ status, action }: TodoColumnProps) {
   const todos = useColumnTodos(status)
+  const { ref, isDropTarget } = useDroppable({
+    id: status,
+    collisionDetector: pointerIntersection,
+    accept: (source) =>
+      isTodoStatus(source.data.status) && canMove(source.data.status, status),
+  })
 
   return (
-    <section className="flex flex-col gap-2 rounded-xl bg-muted/50 p-3">
+    <section
+      ref={ref}
+      className={cn(
+        "flex flex-col gap-2 rounded-xl bg-muted/50 p-3 transition-shadow",
+        isDropTarget && "ring-2 ring-ring/50"
+      )}
+    >
       <header className="flex h-6 items-center justify-between">
         <h2 className="text-sm font-medium text-muted-foreground">
           {STATUS_LABELS[status]}

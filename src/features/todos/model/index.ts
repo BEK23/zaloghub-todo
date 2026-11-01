@@ -5,7 +5,7 @@ export {
   moveTodo,
   normalizeTitle,
 } from "./todo"
-export { TODO_STATUSES, nextStatus, prevStatus } from "./status"
+export { TODO_STATUSES, canMove, isTodoStatus } from "./status"
 export {
   DEFAULT_FILTER,
   STATUS_FILTERS,
