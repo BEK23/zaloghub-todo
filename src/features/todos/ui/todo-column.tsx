@@ -1,4 +1,4 @@
-import { useTodosByStatus } from "@/store/todo-selectors"
+import { useColumnTodos } from "@/store/todo-selectors"
 import type { TodoStatus } from "@/types/todo"
 
 import { STATUS_LABELS } from "./status-labels"
@@ -9,7 +9,7 @@ interface TodoColumnProps {
 }
 
 export function TodoColumn({ status }: TodoColumnProps) {
-  const todos = useTodosByStatus(status)
+  const todos = useColumnTodos(status)
 
   return (
     <section className="flex flex-col gap-2 rounded-xl bg-muted/50 p-3">

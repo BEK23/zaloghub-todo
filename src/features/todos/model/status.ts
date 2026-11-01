@@ -1,4 +1,4 @@
-import { TODO_STATUS, type Todo, type TodoStatus } from "@/types/todo"
+import { TODO_STATUS, type TodoStatus } from "@/types/todo"
 
 export const TODO_STATUSES: readonly TodoStatus[] = [
   TODO_STATUS.BACKLOG,
@@ -26,8 +26,4 @@ export function nextStatus(status: TodoStatus): TodoStatus | null {
 
 export function prevStatus(status: TodoStatus): TodoStatus | null {
   return STATUS_TRANSITIONS[status].prev
-}
-
-export function todosByStatus(todos: Todo[], status: TodoStatus): Todo[] {
-  return todos.filter((todo) => todo.status === status)
 }
