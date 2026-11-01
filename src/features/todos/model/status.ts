@@ -1,9 +1,9 @@
-import type { Todo, TodoStatus } from "@/types/todo"
+import { TODO_STATUS, type Todo, type TodoStatus } from "@/types/todo"
 
 export const TODO_STATUSES: readonly TodoStatus[] = [
-  "backlog",
-  "active",
-  "completed",
+  TODO_STATUS.BACKLOG,
+  TODO_STATUS.ACTIVE,
+  TODO_STATUS.COMPLETED,
 ]
 
 interface StatusTransitions {
@@ -12,9 +12,12 @@ interface StatusTransitions {
 }
 
 const STATUS_TRANSITIONS: Record<TodoStatus, StatusTransitions> = {
-  backlog: { prev: null, next: "active" },
-  active: { prev: "backlog", next: "completed" },
-  completed: { prev: "active", next: null },
+  [TODO_STATUS.BACKLOG]: { prev: null, next: TODO_STATUS.ACTIVE },
+  [TODO_STATUS.ACTIVE]: {
+    prev: TODO_STATUS.BACKLOG,
+    next: TODO_STATUS.COMPLETED,
+  },
+  [TODO_STATUS.COMPLETED]: { prev: TODO_STATUS.ACTIVE, next: null },
 }
 
 export function nextStatus(status: TodoStatus): TodoStatus | null {

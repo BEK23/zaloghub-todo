@@ -1,7 +1,7 @@
-import type { TodoStatus } from "@/types/todo"
+import { TODO_STATUS, type TodoStatus } from "@/types/todo"
 
 export const STATUS_LABELS: Record<TodoStatus, string> = {
-  backlog: "Бэклог",
-  active: "В работе",
-  completed: "Выполнено",
+  [TODO_STATUS.BACKLOG]: "Бэклог",
+  [TODO_STATUS.ACTIVE]: "В работе",
+  [TODO_STATUS.COMPLETED]: "Выполнено",
 }

@@ -3,7 +3,7 @@ import { ChevronLeftIcon, ChevronRightIcon, XIcon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import { useTodoStore } from "@/store/todo-store"
-import type { Todo } from "@/types/todo"
+import { TODO_STATUS, type Todo } from "@/types/todo"
 
 import { nextStatus, prevStatus } from "../model"
 import { STATUS_LABELS } from "./status-labels"
@@ -24,7 +24,8 @@ export function TodoItem({ todo }: TodoItemProps) {
       <span
         className={cn(
           "min-w-0 flex-1 truncate text-sm",
-          todo.status === "completed" && "text-muted-foreground line-through"
+          todo.status === TODO_STATUS.COMPLETED &&
+            "text-muted-foreground line-through"
         )}
       >
         {todo.title}

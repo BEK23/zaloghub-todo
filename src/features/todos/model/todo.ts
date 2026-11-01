@@ -1,4 +1,4 @@
-import type { Todo, TodoStatus } from "@/types/todo"
+import { TODO_STATUS, type Todo, type TodoStatus } from "@/types/todo"
 
 export function normalizeTitle(raw: string): string {
   return raw.trim()
@@ -12,7 +12,7 @@ export function createTodo(title: string): Todo {
   return {
     id: crypto.randomUUID(),
     title: normalizeTitle(title),
-    status: "backlog",
+    status: TODO_STATUS.BACKLOG,
   }
 }
 
